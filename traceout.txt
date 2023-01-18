@@ -1,0 +1,21 @@
+Tracert/traceroute Nedir? Nasıl Çalışır? Tracert bir sorgulama komutudur. Neyi sorguladığına gelecek olursak hedefe giden yoldaki durakları gösterir. Paket transferi sırasında hatanın kaynağını bulmada yardımcı olur. Tracert bu işlemi yaparken İnternet Denetim İletisi Protokolü (ICMP)
+ve Ip yaşam süresi (TTL) değerlerini kullanılır. Tracert başlangıçta TTL değerini 1 yapar kendisine en yakın routerı (yönlendiriciyi) bulur, bulunca TTL değerini artırır ve ikinci routerı bulmaya başlar. Emin olmak için her durağa ortalama 3 kez mesaj gönderir. 
+
+
+HOP Nedir?
+
+Resim 2 sıralı olarak gösterilen her bir satır HOP olarak adlandırılır. Her bir hop bir duraktır.
+
+Bulunduğum yerden Google 13 hop ta ulaşabildim.  Dipnot : (En fazla 30 durak gösterilir)
+
+Verdiğim örnekte herhangi bir web adresine ulaşmak için geçilen routerların listesi görüntülenmektedir. Öncelikle internet servis sağlayıcının routerından geçen paketler daha sonra Telekom’un Acıbadem, Adapazarı routerları üzerinden hareketine devam eder. En son google un kendi routerları arasında varacağı adresi bulmaktadır. Bu adrese ulaşmak için 13 adet router geçilmiştir.
+
+Örneğimizdeki *ile başlayan satırlarda duraklardaki makinalar firewall tarafından engellenmiştir yani echo paketlerine izin vermez. Paketimiz izin verilmeyen duraktan diğerine geçince yoluna devam eder.
+
+İşletim Sistemlerine Göre Komutları;
+
+Windows: tracert <IP address>
+Linux/UNIX: traceroute <IP address>
+Macintosh: traceroute <IP address>
+
+TTL sorğunun və ya məzmunun şəbəkədə keşdə nə qədər qalacağını müəyyən edən konsepsiyadır. Türkcə qarşılığı “ömür boyu” olan bu terminin mənası TTL növünə görə fərqlənir.
