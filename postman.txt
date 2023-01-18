@@ -1,0 +1,3 @@
+Postman nedir nasıl kullanılır?
+Postman Kullanımı
+Postman bir API platformudur. API geliştirmek , test etmek ve/veya hazır bir API kullanımı için gerekli isteklerde bulunabileceğimiz bir uygulamadır. Insomnia REST Client, HTTPie gibi alternatifleri de bulunmasına karşın en çok kullanılan API aracıdır.
