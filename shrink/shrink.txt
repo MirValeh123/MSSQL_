@@ -1,0 +1,19 @@
+SQL Server’ da shrink işlemi data ve log dosyaları üzerinde bulunan boş alanları geri alarak dosya sisteminde kullanıma dahil etmek için yapılan işlemdir. Genellikle kısıtlı disk alanı yüzünden data veya log dosyalarındaki boş alanları küçülterek diskte yer açmak için tercih edilir.  Birde küçük data dosyaları (mdf,ndf) daha performanslıdır diye bir efsane de vardır J
+
+Gerçekten data dosyalarını shrink etmeli miyiz? Veri dosyalarını küçültmek avantajlı mıdır? Yoksa dezavantajları da var mı?
+
+Öncelikle SQL Server’ da Data dosyalarımızı küçültmek istediğimizde shrink işlemi yapılırken sistemde çok fazla kilitlenme meydana getirecektir. Çünkü küçültme işlemi için sayfalardaki veriler taşınacaktır. Taşıma yapılırken kilitlenmeler meydana gelecek olup işlem yapılan her satır bilgi de günlük dosyasına (Log File) kaydedilecektir. Data file shrink işlemi yapılırken çok büyük oranda log dosyamızda büyüme olacaktır. ( I/O maliyeti)
+
+Shrink yapılırken işlem yapılacak page arabellek havuzuna (buffer cache) yüklenecek olup, arabellek havuzunu da ihtiyacımız olmayan sayfalarda dolduracaktır. Buffer cache ihtiyaç olmayan sayfaları bellekten temizlese de sistem kaynağı maliyeti meydana gelecektir.
+
+Data file shrink işleminden sonra yine yüksek bir I/O maliyeti ile karşı karşıya kalacağız. Bu maliyet dizin parçalanması ( Index Fragmentation) ’dır. İstenmeyen bir durum olan index fragmentasyonu meydana geldiğinde veriye ulaşmak için daha fazla time ve i/o maliyeti ortaya çıkacak. Shrink işleminden sonra index fragmentasyonunu ortadan kaldırmak için yüksek CPU ve I/O maliyeti olan Index Rebuild veya Index Reorganize işlemi yapmamız kaçınılmaz olacaktır.
+
+Görüldüğü gibi avantajından daha çok dezavantajları bulunan shrink işlemini kesinlikle düzenli olarak ( Auto shrink ) yapmanızı önermiyorum. Eğer bir seferlik büyük bir oranda küçülme ihtiyacınız varsa tavsiye olarak yeni bir data dosyası (.ndf) oluşturmanızı, tablolarınızı ve indexlerinizi yeni oluşturduğunuz data dosyasına taşıdıktan sonra kaynak data dosyanızı silmenizi tavsiye edebilirim. Tabiki kullanmış olduğunuz sisteminize ve altyapınıza göre olarak size en uygun çözümü tercih etmelisiniz.
+
+Shrink işleminin Index parçalanmasına nasıl sebep olduğunu incelemek için aşağıdaki örneği hazırladım.  Özetle örneğimde ;
+
+·         Yeni bir veri tabanı oluşturuyorum.
+
+·         2 tane tablo oluşturup birini boş alan meydana getirmek için siliyorum.
+
+·         Shrink işlemi yaptıktan sonra tablomda tanımlı olan Index’in parçalanma oranına bakıyorum.

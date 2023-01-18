@@ -1,0 +1,37 @@
+Sql Server ile uğraşan herkesin başına gelmesi kuvvetle muhtemel bir durumdur bir veritabanının "Suspect" duruma gelmesi
+Bu durumun telafisi için birden çok çözüm mevcut bunları sırasıyla yazacağım. Ancak her şeyden önce bilmeniz gereken bazı detaylar var
+
+REPAIR_FAST : Geriye dönük veri onarım işlevini gerçekleştirir. Veri kaybı olmaz fakat hata alma olasılığı diğerlerine göre daha fazladır.
+REPAIR_REBUILD : Bir önceki işlevden bir sonuç alınamadığı zaman kullanılabilir, veri kaybı olmaz fakat hata alma olasılığı vardır. 
+REPAIR_ALLOW_DATA_LOSS : Rebuild yaptığınız halde hata almışsanız bu işlemi deneyebilirsiniz fakat veri kaybı olasılığı vardır. Bu nedenle öncesinde yedekleme yapılmalıdır.
+Önemli bir hatırlatma : Suspect modundaki veritabanını sakın "Detach" etmeyin yoksa bir daha "Attach" edemezsiniz. Bu yüzden mutlaka ilk iş olarak .mdf ve .log dosyalarını yedekleyip aşağıdaki yöntemlerle şansınızı deneyin. Her denemeden sonra SQL server’ ı yeniden başlatmayı unutmayın.
+
+
+1.       DatabaseName yazan yerleri suspect olmuş veritabanınızın adıyla değiştirin ve komutu çalıştırın.
+             EXEC SP_RESETSTATUS ’DatabaseName’;
+             ALTER DATABASE DatabaseName SET EMERGENCY
+             DBCC CHECKDB(’DatabaseName’)
+             ALTER DATABASE DatabaseName SET SINGLE_USER WITH ROLLBACK IMMEDIATE
+             DBCC CHECKDB (’DatabaseName’, REPAIR_ALLOW_DATA_LOSS)
+             ALTER DATABASE DatabaseName SET MULTI_USER
+ 
+            2.       Yukarıdaki kodlardan sonuç alamadıysanız bunları deneyin :
+DBCC CHECKDB (‘DatabaseName’, REPAIR_ALLOW_DATA_LOSS)
+DBCC CHECKDB (‘DatabaseName’)
+DBCC CHECKDB (‘DatabaseName’, REPAIR_REBUILD) 
+ 
+3.       Ve üçüncü olarak iki seçenek de fayda etmediyse :
+USE master;
+GO
+EXEC sp_resetstatus’DatabaseName’;
+USE DatabaseName;
+DBCC CHECKDB WITH NO_INFOMSGS;
+ 
+4.       Son olarak seçeneğimiz kalmadığında aşağıdakileri kullanabiliriz
+USE master;
+GO
+ALTER DATABASE DatabaseName SET EMERGENCY
+ALTER DATABASE DatabaseName SET SINGLE_USER
+DBCC CHECKDB(DatabaseName, REPAIR_ALLOW_DATA_LOSS) WITH NO_INFOMSGS;
+USE DatabaseName;
+DBCC CHECKDB WITH NO_INFOMSGS;

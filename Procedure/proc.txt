@@ -1,0 +1,7 @@
+Saklı yordamlar belli bir işlevi yerine getirmek için kullanılan kod parçacıklarıdır. Bu yazıda, SQL programlama dilinde Saklı Yordam (Store Procedure) yapısının ne olduğu, nerelerde kullanıldığını, yeni bir saklı yordam oluşturma, güncelleme, silme gibi işlemleri uygulamalı olarak anlatmaya çalışacağım
+Nerelerde Kullanılır
+Tekrar kullanılabilirliği sağlamak istediğimizde kullanılır. Modülerlik sağlayarak, bir defa oluşturulan fonksiyonnu istediğimiz kadar çağırabiliriz.
+Daha hızlı yürütme (execution) istediğimizde kullanılır. Çünkü kod ilk çalıştırıldığında derlenir, daha sonra sadece hafızada saklanan execution plan halini kullanarak, tekrar derlenme ve optimizeye ihtiyaç duymamaktadır.
+Ağ trafiğini azaltmak istediğimizde kullanılır. Saklı Yordam SQL ifadelerini ağ ortamına çoklu göndermek yerine, toplu olarak çalıştırabilir. Böylece trafiği azaltıp performans artılır.
+Daha iyi veri güvenliği sağlar. Kullanıcıların saklı yordam ifadelerini doğrudan çalıştırma izni olmadan, saklı yordam’da izin verilerek güvenlik sağlanır.
+

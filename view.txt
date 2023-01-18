@@ -1,0 +1,29 @@
+Sql view öğeleri veritabanının altında tutulur. Sql view nedir ve niçin kullanılır sorusunun yanıtı ise; bir yahut birden fazla tabloyu join ile birleştirip, where ile koşul belirttikten sonra içerisinde group by deyiminin kullanılabildiği sanal tabloya view denir. view in amaçlarından bir tanesi ise birden fazla tablodan çekilen verilerin tek tablo içerisinde toplanması ve bu sanal tablo içerisinden gerekli filtreler verilerek sorgu ile raporlama yapılabilmesidir, bunlar sql view avantajları arasında sayılabilir.
+Sql View Anahtar Kelimeleri ve Anlamları :
+Create View : Yeni view oluşturmak için kullanılır.
+Alter View : Daha önceden oluşturulmuş bir view üzerinde değişiklik yapılmak için kullanılır.
+Drop View : Daha önceden oluşturulmuş bir view i veritabanından silmek için kullanılır.
+With Encryption : View i şifrelemek için kullanılır.
+Sql View in İçerisinde Yapılamayacak İşlemler Nelerdir?
+İsimsiz bir kolon kullanılamaz. (sql aggregate fonksiyon kullanımından sonra kolon ismi boş gelir. Sql aggregate fonksiyonları görmek için tıklayın. )
+Sql stored procedure yapısı gibi, view içerisinde parametre gönderilemez. Sql stored procedure yapısını görmek için tıklayın.
+View yapısı içerisinde dml kodları (insert into, update, delete) kullanılamaz.
+View yapısı içerisinde, sadece select ile başlayan ifadeler kullanılabilir.
+View içerisinde order by (sıralama) fonksiyonu kullanılamaz.
+Unutulmamalıdır ki view ler sadece tablolar içerisindeki verileri görüntülemeye yarar, bu nedenden ötürü view içerisinde verileri etkileyecek herhangi bir işlem yapılamaz.
+
+Sql View Oluşturma Adımları :
+Sorguya başlarken create view view_adı olarak başlanır.
+Eğer view şifrelenecekse, ikinci satır içerisinde with encryption ifadesi kullanılmalıdır.,
+İlk iki adımdan sonra ise “as” anahtar sözcüğü kullanıldıktan sonra select sorgusu yazılır.
+Sorgu yazıldıktan sonra f5 (execute) tuşuna basılarak yeni view oluşturulur.
+Sql View Örnekleri :
+Northwind View Örnekleri :
+Northwind veritabanı içerisindeki personelleri görüntüleyen bir view yazalım;
+
+Create view personel
+as
+select FirstName + ‘ ‘ + LastName as ‘FirstName LastName’ ,
+Title , Convert (nvarchar,HireDate,103) as ‘HireDate’ ,
+Country
+from Employees

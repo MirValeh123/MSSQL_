@@ -1,0 +1,55 @@
+SQL SERVER'DA BAŞKA SERVER ÜZERİNDEKİ TABLO VE VERİYİ KOPYALAMAK
+
+Bilişim sektöründeki bilginin artışıyla beraber veriyi depolama ve yönetme ihtiyacımız da doğmuştur. Bu ihtiyaç doğrultusunda veri tabanları ortaya çıktı diyebiliriz. Verilere erişimde kolaylık sağlayan veri tabanları, verinin kullanılmasını ve güncellenmesini de kullanıcılar için son derece kolaylaştırmaktadır. Microsoft SQL Server tüm bu işlemleri kullanıcılar için son derece basit hale getirirken, en fazla kullanılan veri tabanı sunucusu olarak karşımıza çıkmaktadır. Verilerin belirli bir kaynaktan hedefe aktarılması gereksinimi için ise Microsoft SQL Server, SQL Server Import and Export Wizard sihirbazını bizlere sunmaktadır. Örneğin eğer tablo taşımak istiyorsanız, tabloyu manuel olarak kaynak veri tabanından Excel dosyasına kopyalayıp, oradan da hedef veri tabanına aktarmak yerine, SQL Server’ın sunduğu bu sihirbaz sayesinde Next -> Next -> … -> Finish ile dilediğiniz taşıma işlemini kolaylıkla gerçekleştirebilirsiniz.
+
+SQL Server Import and Export Wizard, aynı sunucu üzerinde farklı veri tabanları arasında tablo aktarımı yapmanın yanında, farklı sunucular arasında tablo veya veri tabanı aktarımı yapma gibi imkânlar da sağlamaktadır. Verileri aktarmadan önce araya bir sorgu ekleyip, sorgunun sonucunu da hedef veri tabanına aktarabilirsiniz.
+
+Import and Export Wizard’ı iki farklı şekilde kullanarak veri tabanı sunucuları arasında tablo aktarım işleminizi gerçekleştirebilirsiniz:
+
+ 
+
+1.Hedef sunucuda tablonun taşınacağı veri tabanına sağ tıklayıp Tasks -> Import Data seçerek;
+
+2.Kaynak sunucuda taşınacak tablonun yer aldığı veri tabanına sağ tıklayıp Tasks -> Export Data seçerek;
+
+Bu iki seçenekten herhangi birini kullanarak veri tabanları arasındaa tablo kopyalayabiliriz.
+
+Fakat ben size daha kolay ve basit bir işlemden bahsedeceğim.Ve anlatacağım işlemde 7GB ve üstü tabloları da kolaylıkla çekebilirsiniz.
+
+öncelikle veri çekeceğimiz server üzerinde aşağıdaki kodları execute etmeliyiz.
+
+EXEC sp_configure 'show advanced optıons', 1
+
+ RECONFIGURE
+
+ GO
+
+ EXEC sp_configure 'ad hoc distributed queries', 1
+
+ RECONFIGURE
+
+ GO
+
+çalıştırınca aşağıda şöyle bir yazı gelecek;
+
+Configuration option 'show advanced options' changed from 1 to 1. Run the RECONFIGURE statement to install.
+
+Configuration option 'Ad Hoc Distributed Queries' changed from 1 to 1. Run the RECONFIGURE statement to install.
+
+Buradaki 1 to 1 kısmımları sizin serverınza göre 1 to 0 gibi de değişiklik gösterebilir.
+
+sonra veri çektiğimiz serverda ;
+
+select *from sys.servers   kodunu execute yapıyoruz.
+
+açılan mesaj ekranında yazan provider adını alıyoruz.
+
+Tekrar veri kopyalacağımız servere New Query kısmına geliyoruz.aşağıdaki kodu düzenleyip çalıştırıyoruz.
+
+SELECT * INTO tbl_Yazarlar from OPENDATASOURCE
+
+( 'SQLNCLI' , 'Data Source=veriçekilecekserverinadıyazılır;Initial Catalog=verialınacakdatabaseinadıyazılır;User ID=loginadı;Password=şifre?').verialınacakdatabaseinadıyazılır.kopyalanmakistenentabloadı
+
+yazılır.Execute edilir.Artık tablo kendi serverinizde oluşmuştur.Tek yapmanız gereken tablonun ID ayarlarını primarykey yapmak.Kolay gelsin arkadaşlar.
+
+ 

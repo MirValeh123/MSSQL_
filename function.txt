@@ -1,0 +1,100 @@
+Fonksiyonlar tamamen işimizi kolaylaştırmak adına sürekli olarak tekrarladığımız sql sorgularına tek bir noktadan erişmemizi sağlar. Buda bize hızlı bir erişim imkanı,hızlı bir hata kontrol mekanizması, çabuk müdahale, sorgu tekrarlamama gibi imkanları verir.
+
+Sql Serverda 4 çeşit fonksiyon kavramı vardır.Bunlar;
+
+1- Scalar-Valued Function
+
+2- Table-Valued Function
+
+3-Aggragate Function
+
+4-System Function
+
+Functionlar istenilen deger tipinde dönüs yapabilir. INT, VARCHAR deger döndürebileceginiz gibi bir tablo da döndürebilirsiniz.
+
+1.Scalalar Value Function
+
+scalar = adından da anlaşıldığı gibi sayısal değer döndüren bir fonksiyondur.
+
+Bu fonksiyon tanımlanırken integer tipinde bir değer döndürüleceği düşünülerek tanımlanır.
+
+Create komutu ile fonksiyonlar tanımlanır. Aynı fonksiyonu düzenlemek istediğimizde ise create kısmını Alter ile değiştirmemiz yeterli olacaktır.
+
+Create Function Fn_ToplamaYap(@sayi1 int,@sayi2 int)
+Returns int
+As
+Begin
+Declare @toplam int
+Set @toplam = @sayi1+ @sayi2
+return @toplam
+End
+
+bu şekilde kullanılan bir fonksiyonu herhangi bir tabloya join ile bağlayabiliriz veya direk select çekebiliriz.
+
+Select dbo.Fn_ToplamaYap(4,7)
+
+Dışarıdan ad ve soyad alan ve bunları birleştirip araya boşluk koyarak tekbir değer geri döndüren function.
+
+Aynı şekilde bu fonksiyon string yani nvarchar tipinde bir değişkeni döndürmek için yaratılmıştır. Örnek string birleştirme için tanımlanmış olsada benzer amaçlara hizmet eden bir çok fonksiyon tanımlaması kodların çok daha okunabilir olmasını sağlamaktadır.
+
+Create Function Fn_Birlestir(@Ad Nvarchar(20),@Soyad Nvarchar(30))
+Returns Nvarchar(51)
+As
+Begin
+Return @Ad + Space(1)+ @Soyad
+End
+Select dbo.Fn_Birlestir('Haktan','Akdag')
+
+Girilen tarihlerle yaş hesaplayan fonksiyon.(Bu örnek bir hesaplama fonksiyonu olduğu için aslında en çok işimize yarayacak fonksiyon tiplerinden biridir.) Çünkü sql de genellikle matematiksel hesaplamalar yapılması çok sık kullanılır. Benzer bir hesaplama fonksiyonu ile her türlü formüller veya küçük hesaplamalar ana sorgudan bağımsız olarak ilgili fonksiyonun içinde işlem yapılması sağlanabilir.
+
+
+CREATE Function Fn_YasHesapla(@tarih Date)
+Returns int
+As
+Begin
+Declare @sonuc int
+--Set @sonuc = YEAR(GETDATE()) - YEAR(@tarih)
+Set @sonuc = DATEDIFF(Year,@tarih,GETDATE())
+Return @sonuc
+End
+Select dbo.Fn_YasHesapla('01.01.2000')
+
+
+Id si verilen bir çalışan kaç adet satış yapmıştır ?
+
+
+Select Ad,Soyad,'Toplma Satış' From Calisanlar
+CREATE Function Fn_SiparisHesapla(@ID int)
+Returns int
+As
+Begin
+Declare @adet int
+Select @adet = SUM(SD.Miktar) From Calisanlar C
+Inner Join Siparisler S On S.CalisanID=C.CalisanID
+Inner Join SiparisDetaylari SD On SD.SiparisID = S.SiparisID
+Where C.CalisanID=@ID
+Group By C.CalisanID
+Return @adet
+End
+Select Ad,Soyad,dbo.Fn_SiparisHesapla(CalisanID) From Calisanlar
+
+
+
+Belirlenen Kategorilere ait kaç adet ürünün oldugunu döndüren fonksiyon.
+
+Select KategoriAdi,'Adet' From Kategoriler
+Create Function Fn_KategoriUrunAdet(@KategoriID int)
+Returns int
+As
+Begin
+Declare @count int
+Select @count = COUNT(U.UrunID) From Kategoriler K
+Inner Join Urunler U On U.KategoriID = K.KategoriID
+Where K.KategoriID=@KategoriID
+Return @count
+End
+Select KategoriAdi,dbo.Fn_KategoriUrunAdet(KategoriID) As UrunAdedi From Kategoriler
+
+
+
+Tablo Döndüren Fonksiyon( SQL De temp tablo yada değişken tablo kullanımı bazen performans sorunlarına yol açabilir. Bu durumda Büyük sorgularda kullanılan tablolar tablo döndüren fonksiyonlarla kullanıldığında performansda artmalara yol açabilmektedir.)
