@@ -1,0 +1,15 @@
+Tetikleyici (Trigger) yapısı, ilişkisel veri tabanı yönetim sistemlerinde, bir tabloda belirli olaylar meydana geldiğinde veya gelmeden önce otomatik olarak çalışan özel bir store procedure türüdür. Bir tabloda ekleme, güncelleme ve silme işlemlerinden biri gerçekleştiğinde veya gerçekleşmeden önce, aynı tabloda veya başka bir tabloda belirli işlemlerin yapılmasını istediğimizde, trigger yapısını kullanırız. Örnek verecek olursak, satış tablosunda satış işlemi gerçekleştiğinde ürünün stok miktarının eksiltilmesi, banka hesabında işlem gerçekleştikten sonra otomatik olarak email gönderilmesi gibi örnekler verilebilir.
+
+Tetikleyiciler veritabanı yöneticisi (Db admin) tarafından INSERT, UPDATE ve DELETE işlemlerinden önce veya sonra çalıştırılmak üzere tanımlanır.
+Tetikleyiciler kullanıcı tarafından manuel olarak çalıştırılamaz.
+Bir tetikleyici içinde, bir transaction commit ve rollback edilemez.
+Tetikleyiciler tablo veya view yapılarına tanımlanabilir.
+Bir tetikleyici olayı meydana geldiğinde, trigger fonksiyonu uygun bir zamanda veriyi işlemek üzere çağrılır.
+DML (AFTER ve INSTEAD OF), DDL ve Logon tetikleyiciler olmak üzere üç yapı bulunmaktadır.
+
+Nerelerde Kullanılır
+Veri bütünlüğünu sağlamak için kullanılır. Veriler üzerinde bir işlem yapıldığında, iş kurallarına uygun gerçekleşip gerçekleşmediği kontrol edilerek, hatalı girişlerin yapılması önlenir.
+Referans bütünlüğünü sağlamak için kullanılır. Bir kullanıcı silindiğinde onunla ilgili satış tablosundaki siparişleri silmek istediğimizde tanımlanır.
+Tablolarda veya veritabanında mevcut olmayan ek bilgiyi türetmek için kullanılır. Örneğin sipariş tablosunda miktar sütununda bir güncelleme meydana geldiğinde toplam_fiyat sütununa karşılık gelen işlemi hesaplayabiliriz.
+
+
