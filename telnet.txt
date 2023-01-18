@@ -1,0 +1,24 @@
+Telnet, bir bilgisayara sanal olarak erişmek ve iki makine arasında iki yönlü işbirliğine dayalı, metin tabanlı bir iletişim kanalı sağlamak için kullanılan bir ağ protokolüdür.
+
+Uzak oturumlar oluşturmak için bir kullanıcı komutu İletim Kontrol Protokolü/İnternet Protokolü ( TCP/IP ) ağ protokolü izler. Web’de, Köprü Metni Aktarım Protokolü ( HTTP/HTTPS ) ve Dosya Aktarım Protokolü (FTP), kullanıcıların uzak bilgisayarlardan belirli dosyaları istemesine olanak tanırken, Telnet aracılığıyla kullanıcılar belirli kullanıcılara verilen ayrıcalıklarla normal bir kullanıcı olarak oturum açabilir ve o bilgisayardaki uygulamalara ve verilere erişebilir.
+
+Bir Telnet komut isteği için sözdiziminin bir örneği aşağıdaki gibidir:
+
+telnet sanal.bilgisayar.devreyakan.com
+
+
+Bu isteğin sonucu, bir kullanıcı kimliği ile oturum açma daveti olacaktır ve ardından program, kullanıcıdan bir parola isteyecektir. Kabul edilirse, kullanıcıya uzak ana bilgisayara erişim izni verilir.
+
+Telnet, büyük olasılıkla program geliştiricileri, öğrenciler ve uzak bir makinede bulunan belirli uygulamaları veya verileri kullanmaya ihtiyacı olan herkes tarafından kullanılır.
+
+
+
+Telnet’in Kullanım Alanları
+Telnet, dosyaları düzenlemek, çeşitli programları çalıştırmak ve e-postaları kontrol etmek dahil olmak üzere bir sunucudaki çeşitli etkinlikler için kullanılabilir.
+
+Bazı sunucular, basit oyunlar oynamak veya hava durumu raporlarını aramak için genel verilere erişmek için Telnet kullanarak uzak bağlantıları etkinleştirir. Bu özelliklerin çoğu, nostaljik eğlence için veya belirli verilere erişmesi gereken eski sistemlerle hala uyumlu oldukları için mevcuttur.
+
+Kullanıcılar ayrıca web sunucularından bağlantı noktalarına kadar Telnet aracılığıyla metin tabanlı, şifrelenmemiş protokolleri kullanan herhangi bir yazılıma bağlanabilir. Kullanıcılar uzak makinede bir komut istemi açabilir, telnet kelimesini ve uzak makinenin adını veya IP adresini yazabilir ve telnet bağlantısı açık olup olmadığını görmek için bağlantı noktasına ping gönderecektir. Açık bir bağlantı noktası boş bir ekran gösterirken, bağlantı noktasının bağlandığını bildiren bir hata mesajı, kapalı olduğu anlamına gelir.
+
+Telnet’in Güvenliği
+Telnet güvenli bir protokol değildir ve şifrelenmez. Bir kullanıcının bağlantısını izleyerek, herhangi biri bir kişinin kullanıcı adı, şifresi ve Telnet oturumu üzerinden düz metin olarak yazılan diğer özel bilgilerine erişebilir. Bu bilgilerle kullanıcının cihazına erişim sağlanabilir.

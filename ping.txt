@@ -1,0 +1,25 @@
+Ping, İnternet bağlantınızın tepki süresi olan bir gecikme ölçüsüdür. Cihazınızın bir sunucuya ne kadar hızlı sinyal gönderip alabildiğini ifade eder. Pinginiz ne kadar yüksekse, gecikme ve çevrimiçi gecikmelerle karşılaşma olasılığınız o kadar artar.
+
+Ping hızı milisaniye (ms) olarak ölçülür.
+
+Ping, cihazdan sunucuya gönderilen sinyalin kendisini ifade ederken, gecikme, ping'in alınması için geçen süredir. Bununla birlikte, ping ve gecikme, bir veri paketinin gönderilmesi ve alınması için geçen süreyi belirtmek için kullanılır.
+
+Çoğu bağlantı için 100 ms'ye kadar olan ping ortalama kabul edilir.
+50 ms ve altındaki bir ping çok iyi kabul edilir ve "düşük ping" olarak ifade edilir.
+25 ms ve 20 ms ile video konferans ve oyun için ideal kabul edilir.
+150 ms veya daha fazla olan ping yavaş kabul edilir ve "yüksek ping" olarak ifade edilir.
+
+Example:
+
+C:\Users\Mirva>ping google.com
+
+Pinging google.com [74.125.205.100] with 32 bytes of data:
+Reply from 74.125.205.100: bytes=32 time=62ms TTL=108
+Reply from 74.125.205.100: bytes=32 time=62ms TTL=108
+Reply from 74.125.205.100: bytes=32 time=61ms TTL=108
+Reply from 74.125.205.100: bytes=32 time=62ms TTL=108
+
+Ping statistics for 74.125.205.100:
+    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),
+Approximate round trip times in milli-seconds:
+    Minimum = 61ms, Maximum = 62ms, Average = 61ms

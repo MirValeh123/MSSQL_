@@ -1,0 +1,8 @@
+Firewall izinsiz kullanıcıların veya kullandığımız ama içeriğini bilmediğimiz yazılımların bilgisayarımıza erişimini engellemeye yardımcı olur. Hatta gerekli ayarlamaları yaparak belirlediğimiz programların firewalldan geçmesine veya geçmemesine güvenli bir Resimde izin verebiliriz, bilgisayarımızda bulunan ağ konumlarını bağlantı sağladığımız ortama göre kullanabiliriz çünkü Windows 7 her ağ konumu için ayrı firewall yapılandırması kullanmaktadır. Tıpkı ast üst ilişkisi gibi ikisinin’ de sahip oldukları yetkiler farklıdır. Firewall’ı default ayarlara geri döndürebiliriz. Ve geldik can alıcı noktaya advanced security (gelişmiş ayarlar) ile Windows 7 firewall’ ın sağladığı güvenliği veri trafiğimize göre gelen ve giden kurallar oluşturarak daha sipesifik hale getirerek kendi isteklerimiz doğrultusunda oluşturacağımız güvenlik konfigürasyonunu bilgisayarımıza uygulayabilir hatta her konum için kendi belirleyeceğimiz güvenlik yapılandırmasını kullanabiliriz. Peki, bunları nasıl yapacağız, beklemeden başlayalım.
+Inbound Rules (Gelen Kuralları), Outbound Rules (Giden Kuralları), bu kurallar içerisinde çok yapıda önceden ayarlanmış default birçok kural içerir.
+
+Inbound Rules (Gelen Kuralları), gelen veri trafiğini izler.
+
+Outbound Rules (Giden Kuralları),giden veri trafiğini izler.
+
+Varsayılanda içerisinde bulunan çoğu kural devre dışıdır.
